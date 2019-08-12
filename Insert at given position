@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+    int data;
+    struct node* next;
+};
+void printList(struct node* n)
+{
+    while(n)
+    {
+        printf("%d ",n->data);
+        n=n->next;
+    }
+}
+void insertatend(struct node** h,int d)
+{
+    struct node* new_node=(struct node*)malloc(sizeof(struct node));
+    new_node->data=d;
+    new_node->next=NULL;
+    if(*h==NULL)
+    *h=new_node;
+    else{
+    struct node* curr=*h;
+    while(curr && curr->next)
+    {
+        curr=curr->next;
+    }
+    curr->next=new_node;
+}
+}
+void insertAtGivenPosn(struct node **head,int p,int v)  
+{  
+   struct node* curr=*head;
+   while(curr && curr->next && curr->next->next && p>0)
+   {
+       curr=curr->next;
+       p--;
+   }
+   struct node* new_node=(struct node*)malloc(sizeof(struct node));
+   new_node->data=v;
+   new_node->next=curr->next;
+   curr->next=new_node;
+}
+int main() {
+	//code
+	int n,pos,val;
+    scanf("%d",&n);
+    struct node* head=NULL;
+    for(int i=0;i<n;i++)
+    {
+        int value;
+        scanf("%d",&value);
+        insertatend(&head,value);
+    }
+    scanf("%d %d",&pos,&val);
+    insertAtGivenPosn(&head,pos-1,val);
+    printList(head);
+	return 0;
+}
