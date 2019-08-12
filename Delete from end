@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+    int data;
+    struct node* next;
+};
+void printList(struct node* n)
+{
+    while(n)
+    {
+        printf("%d ",n->data);
+        n=n->next;
+    }
+}
+void insertatend(struct node** h,int d)
+{
+    struct node* new_node=(struct node*)malloc(sizeof(struct node));
+    new_node->data=d;
+    new_node->next=NULL;
+    if(*h==NULL)
+    *h=new_node;
+    else{
+    struct node* curr=*h;
+    while(curr && curr->next)
+    {
+        curr=curr->next;
+    }
+    curr->next=new_node;
+}
+}
+void deletefromend(struct node** h)
+{
+    if(*h==NULL)
+    printf("not possible");
+    else if((*h)->next==NULL)
+  {
+     struct node* temp=*h;
+     *h=(*h)->next;
+     free(temp);
+     temp=NULL;
+    }
+    else
+    {
+        struct node* curr=*h;
+        struct node* temp=*h;
+        while(curr && curr->next && curr->next->next)
+        {
+            curr=curr->next;}
+            temp=curr->next;
+            curr->next=NULL;
+            free(temp);
+            temp=NULL;
+        
+    }
+}
+int main() {
+	//code
+	int n;
+    scanf("%d",&n);
+    struct node* head=NULL;
+    for(int i=0;i<n;i++)
+    {
+        int value;
+        scanf("%d",&value);
+        insertatend(&head,value);
+    }
+    deletefromend(&head);
+    printList(head);
+	return 0;
+}
